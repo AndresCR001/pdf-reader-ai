@@ -2,29 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>PDF Reader AI</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="app-header">
-    <h1>PDF Reader AI</h1>
-  </header>
-
-  <main class="app-container">
-    <section class="chat-input-section">
-      <textarea id="questionInput" class="chat-input" placeholder="Type your question..."></textarea>
-      <div class="chat-buttons">
-        <button id="askBtn" class="btn btn-primary">Ask</button>
-        <button id="resetBtn" class="btn btn-danger">Clear Conversation</button>
+  <div class="app-wrapper">
+    <aside class="sidebar">
+      <div class="session-header">
+        <h2>Sessions</h2>
+        <button id="newSessionBtn">＋</button>
       </div>
-      <p id="typingIndicator" class="typing-indicator" style="display: none;">AI is typing...</p>
-    </section>
+      <ul id="sessionList" class="session-list"></ul>
+    </aside>
 
-    <section id="chatBox" class="chat-box">
-      <!-- Chat messages will appear here -->
-    </section>
-  </main>
+    <main class="main-chat">
+      <header class="app-header">
+        <h1>PDF Reader AI</h1>
+        <p id="activeSessionName">Active: None</p>
+      </header>
+
+      <section class="chat-box" id="chatBox"></section>
+
+      <section class="chat-input-section">
+        <textarea id="questionInput" placeholder="Type your question..."></textarea>
+        <div class="chat-buttons">
+          <button id="askBtn">Ask</button>
+          <button id="resetBtn">Clear</button>
+        </div>
+        <p id="typingIndicator" class="typing-indicator" style="display: none;">AI is typing...</p>
+      </section>
+    </main>
+  </div>
 
   <script src="main.js"></script>
 </body>

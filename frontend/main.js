@@ -13,7 +13,7 @@ let activeSessionId = null;
 // Crear nueva sesión
 function createSession(name = `Chat ${Object.keys(sessions).length + 1}`) {
   const id = crypto.randomUUID();
-  sessions[id] = { name, messages: [] };
+  sessions[id] = { name, messages: [], tokens: 0, cost: 0};
   activeSessionId = id;
   updateSessionList();
   loadSessionMessages();
@@ -40,6 +40,17 @@ function updateSessionList() {
 function updateSessionName() {
   const session = sessions[activeSessionId];
   activeSessionName.textContent = session ? `Active: ${session.name}` : 'Active: None';
+  updateUsageInfo();
+}
+
+function updateUsageInfo() {
+  const session = sessions[activeSessionId];
+  const usageInfo = document.getElementById('usageInfo');
+  if (session) {
+    usageInfo.textContent = `Tokens: ${session.tokens} | Cost: $${session.cost.toFixed(4)}`;
+  } else {
+    usageInfo.textContent = `Tokens: 0 | Cost: $0.0000`;
+  }
 }
 
 // Cargar mensajes de la sesión activa
@@ -105,6 +116,15 @@ async function sendMessageToSession(question) {
             } else if (data.type === "done") {
               typingIndicator.style.display = "none";
               sessions[activeSessionId].messages.push({ role: 'ai', content: aiMsg.textContent });
+            
+              //Token & cost tracking 
+              const tokenCount = data.usage?.total_tokens || 0;
+              const estimatedCost = tokenCount * 0.000002;
+
+              sessions[activeSessionId].tokens += tokenCount;
+              sessions[activeSessionId].cost += estimatedCost;
+
+              updateUsageInfo();
             }
           } catch (e) {
             console.warn("Error parsing SSE JSON", json, e);

@@ -174,3 +174,10 @@ button {
   color: #6b7280;
   text-align: right;
 }
+.usage-info {
+  font-size: 0.85rem;
+  color: #4b5563;
+  text-align: center;
+  margin-bottom: 10px;
+}
+

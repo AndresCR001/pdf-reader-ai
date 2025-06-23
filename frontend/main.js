@@ -127,6 +127,14 @@ async function sendMessageToSession(question) {
       body: JSON.stringify({ message: question })
     });
 
+    if (response.status === 429) {
+        errorMsg.style.display = "block";
+        errorMsg.textContent = "You are sending messages too quickly. Please wait.";
+        typingIndicator.style.display = "none";
+        return;
+    }
+
+
     if (!response.ok || !response.body) {
       throw new Error("No response stream");
     }

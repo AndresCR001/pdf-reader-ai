@@ -53,6 +53,41 @@ function updateUsageInfo() {
   }
 }
 
+function exportConversation(format = "txt") {
+  if (!activeSessionId || !sessions[activeSessionId]) return;
+
+  const messages = sessions[activeSessionId].messages;
+  if (!messages || messages.length === 0) return;
+
+  let content = "";
+
+  if (format === "md") {
+    content += `# Chat Session: ${sessions[activeSessionId].name}\n\n`;
+    messages.forEach((msg) => {
+      if (msg.role === "user") {
+        content += `**You:** ${msg.content}\n\n`;
+      } else if (msg.role === "ai") {
+        content += `**AI:** ${msg.content}\n\n`;
+      }
+    });
+  } else {
+    content += `Chat Session: ${sessions[activeSessionId].name}\n\n`;
+    messages.forEach((msg) => {
+      const label = msg.role === "user" ? "You" : "AI";
+      content += `${label}: ${msg.content}\n\n`;
+    });
+  }
+
+  const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+  const link = document.createElement("a");
+  const filename = `${sessions[activeSessionId].name.replace(/\s+/g, "_")}.${format}`;
+
+  link.href = URL.createObjectURL(blob);
+  link.download = filename;
+  link.click();
+}
+
+
 // Cargar mensajes de la sesión activa
 function loadSessionMessages() {
   chatBox.innerHTML = '';
@@ -158,6 +193,11 @@ resetBtn.addEventListener("click", () => {
 newSessionBtn.addEventListener("click", () => {
   createSession();
 });
+
+document.getElementById("exportBtn").onclick = () => {
+  const format = document.getElementById("exportFormat").value;
+  exportConversation(format);
+};
 
 // Crear sesión inicial al cargar
 window.onload = () => {

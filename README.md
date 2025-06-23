@@ -29,6 +29,7 @@ A lightweight web application that allows users to interact with a PDF document 
 
 ## 📂 Project Structure
 
+```graphql
 pdf-reader-ai/
 ├── backend/
 │ ├── main.py # FastAPI server and chat endpoint
@@ -41,7 +42,7 @@ pdf-reader-ai/
 │ ├── style.css # Styling
 │ ├── main.js # Chat interaction and session logic
 │ └── package.json # Dev tools (Live Server)
-
+```
 
 ---
 
@@ -85,7 +86,7 @@ npm start
 - The back end will be running at http://localhost:3000
 
 
-Example Use
+### Example Use
 
 1. The app loads a PDF (by default document.pdf in backend).
 2. User types a question like:
@@ -94,15 +95,16 @@ Example Use
 4. You can view usage, clear chat, switch sessions, or export the conversation.
 
 
-Environment Variables
+### Environment Variables
 
-The backend uses the following:
+- The backend uses the following:
 
-Variable	        Description
-OPENAI_API_KEY	    Your OpenAI API Key
+```env
+OPENAI_API_KEY=Your OpenAI API Key
+```
 
 
-Author
-Andrés Chavarría Elizondo
-+506 71437888
-andres.chava.eliz@gmail.com
+### Author
+- Andrés Chavarría Elizondo
+- +506 71437888
+- andres.chava.eliz@gmail.com

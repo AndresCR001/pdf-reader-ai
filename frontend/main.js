@@ -1,3 +1,4 @@
+//DOM elements
 const chatBox = document.getElementById("chatBox");
 const questionInput = document.getElementById("questionInput");
 const askBtn = document.getElementById("askBtn");
@@ -7,10 +8,11 @@ const sessionList = document.getElementById("sessionList");
 const newSessionBtn = document.getElementById("newSessionBtn");
 const activeSessionName = document.getElementById("activeSessionName");
 
+// In-memory session state
 let sessions = {};
 let activeSessionId = null;
 
-// Crear nueva sesión
+// Creates a new chat session with a default name
 function createSession(name = `Chat ${Object.keys(sessions).length + 1}`) {
   const id = crypto.randomUUID();
   sessions[id] = { name, messages: [], tokens: 0, cost: 0};
@@ -20,7 +22,7 @@ function createSession(name = `Chat ${Object.keys(sessions).length + 1}`) {
   updateSessionName();
 }
 
-// Actualizar lista visual de sesiones
+// Updates the sidebar session list and highlights the active one
 function updateSessionList() {
   sessionList.innerHTML = '';
   for (const [id, session] of Object.entries(sessions)) {
@@ -37,12 +39,14 @@ function updateSessionList() {
   }
 }
 
+// Updates session name and usage info display
 function updateSessionName() {
   const session = sessions[activeSessionId];
   activeSessionName.textContent = session ? `Active: ${session.name}` : 'Active: None';
   updateUsageInfo();
 }
 
+// Shows token count and cost per session
 function updateUsageInfo() {
   const session = sessions[activeSessionId];
   const usageInfo = document.getElementById('usageInfo');
@@ -53,6 +57,7 @@ function updateUsageInfo() {
   }
 }
 
+// Allows the user to export the chat as '.txt' or '.md'
 function exportConversation(format = "txt") {
   if (!activeSessionId || !sessions[activeSessionId]) return;
 
@@ -88,7 +93,7 @@ function exportConversation(format = "txt") {
 }
 
 
-// Cargar mensajes de la sesión activa
+// Loads all messages for the active session into the chat box
 function loadSessionMessages() {
   chatBox.innerHTML = '';
   const messages = sessions[activeSessionId]?.messages || [];
@@ -100,18 +105,19 @@ function loadSessionMessages() {
   });
 }
 
-// Enviar mensaje y obtener respuesta
+// Sends the user's question to the backend and streams AI response
 async function sendMessageToSession(question) {
   if (!activeSessionId) return;
 
-  // Mostrar mensaje del usuario
   sessions[activeSessionId].messages.push({ role: 'user', content: question });
+  
+  //Display user's message
   const userMsg = document.createElement('div');
   userMsg.className = 'message user';
   userMsg.textContent = question;
   chatBox.appendChild(userMsg);
 
-  // Mostrar mensaje en blanco para la respuesta
+  // Prepare placeholder for AI response
   const aiMsg = document.createElement('div');
   aiMsg.className = 'message ai';
   chatBox.appendChild(aiMsg);
@@ -183,7 +189,7 @@ async function sendMessageToSession(question) {
   }
 }
 
-// Eventos
+// === UI Event Listeners ===
 askBtn.addEventListener("click", () => {
   const question = questionInput.value.trim();
   if (!question || !activeSessionId) return;
@@ -207,7 +213,7 @@ document.getElementById("exportBtn").onclick = () => {
   exportConversation(format);
 };
 
-// Crear sesión inicial al cargar
+// Initialize with a default sesion
 window.onload = () => {
-  createSession("Default");
+  createSession("Chat");
 };

@@ -1,4 +1,4 @@
-/* Reset básico */
+/* App-wide resets and layout */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -13,14 +13,14 @@ body {
   display: flex;
 }
 
-/* Layout general */
+/* App Container styling */
 .app-wrapper {
   display: flex;
   width: 100%;
   height: 100%;
 }
 
-/* Sidebar: lista de sesiones */
+/* Sidebar: sessions list */
 .sidebar {
   width: 200px;
   background-color: #1f2937;
@@ -68,7 +68,7 @@ body {
   font-weight: bold;
 }
 
-/* Área principal */
+/* Main content: messages, input */
 .main-chat {
   flex: 1;
   display: flex;
@@ -76,7 +76,6 @@ body {
   padding: 20px;
 }
 
-/* Encabezado */
 .app-header {
   text-align: center;
   margin-bottom: 10px;
@@ -93,7 +92,7 @@ body {
   margin-bottom: 10px;
 }
 
-/* Caja de chat */
+
 .chat-box {
   flex: 1;
   background-color: white;
@@ -104,7 +103,7 @@ body {
   margin-bottom: 15px;
 }
 
-/* Mensajes */
+
 .message {
   margin-bottom: 10px;
   padding: 10px;
@@ -112,6 +111,7 @@ body {
   max-width: 75%;
 }
 
+/* Message alignment and color */
 .message.user {
   background-color: #3b82f6;
   color: white;
@@ -126,7 +126,6 @@ body {
   text-align: left;
 }
 
-/* Entrada de texto */
 .chat-input-section {
   display: flex;
   flex-direction: column;
@@ -143,7 +142,7 @@ body {
   font-size: 1rem;
 }
 
-/* Botones */
+
 .chat-buttons {
   display: flex;
   justify-content: flex-end;

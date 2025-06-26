@@ -1,0 +1,56 @@
+
+<!--
+Main HTML structure for the PDF Reader AI application
+Provides:
+    - Sidebar to manage chat sessions
+    - Main area to display chat messages
+    - Input area to ask questions and export chats
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PDF Reader AI</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-wrapper">
+    <aside class="sidebar">
+      <div class="session-header"
+        <h2>Sessions</h2>
+        <button id="newSessionBtn">＋</button>å
+      </div>
+      <ul id="sessionList" class="session-list"></ul>
+    </aside>
+
+    <main class="main-chat">
+      <header class="app-header">
+        <h1>PDF Reader AI</h1>
+        <p id="activeSessionName">Active: None</p>
+        <p id="usageInfo" class="usage-info">Tokens: 0 | Cost: $0.0000</p>
+      </header>
+
+      <section class="chat-box" id="chatBox"></section>
+
+      <section class="chat-input-section">
+        <textarea id="questionInput" placeholder="Type your question..."></textarea>
+        <div class="chat-buttons">
+          <button id="askBtn">Ask</button>
+          <button id="resetBtn">Clear</button>
+          <select id="exportFormat">
+            <option value="txt">.txt</option>
+            <option value="md">.md</option>
+          </select>
+          <button id="exportBtn">Export Chat</button>
+
+        </div>
+        <p id="typingIndicator" class="typing-indicator" style="display: none;">AI is typing...</p>
+      </section>
+    </main>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
